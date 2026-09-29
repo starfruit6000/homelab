@@ -1,0 +1,2 @@
+clevis_bind_servers:
+    - http://10.5.137.3:7500

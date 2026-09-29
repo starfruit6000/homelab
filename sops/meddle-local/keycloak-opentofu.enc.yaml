@@ -5,40 +5,40 @@ sops:
     age:
         - enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IHNzaC1lZDI1NTE5IDdkRkorZyBUSkhy
-            RmQ0aFdpSmtLQmZ5cllmNXNIUU1ZZjM2ak82bmkyMk5HSEFSVHdZCnpQRXdBZzNT
-            MTBFSFlqSVI4aTBzSmVXSWcwaWk3MEJtc2l1UXJqSFhFODgKLS0tIDMxV0NOU2ZN
-            aDlZSVRQQ3kvWnJkd1BTY3hvNTVhbUdZOXI5M0tJN3YyOWcKeLgON95s86Jn8BKG
-            izuR4K+Jy/eO4DW0BSX2ch45hSI004UeZ+JdO+iiBqlmzG4DW+c/NQGgo+MlH3Ab
-            X9naow==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IHNzaC1lZDI1NTE5IDdkRkorZyBtcmFn
+            OXdwY3htVFZuSTVvb0RRQzNFUStTM2JqaDlmcWhPaEIxdDZrY3hzCnd6dGJNeFc5
+            cHBOUXJ6L21qZjV5VzVkOW1Ib2lncENGdkFzY25XU254YUkKLS0tIGg5ME85ZDZ0
+            S1dvUEJNMUNPbzE3cDFSUEZGT1hBMTFXYTAvcnZkN3lzdFUKC67z1buSLKIAplrE
+            vwBXScn5X0Ep33CrZ2GwYsBAKFmPoSblVwcE4bdaUA9CiTx2sRuThXDK4rmCGcFk
+            qFJ9xQ==
             -----END AGE ENCRYPTED FILE-----
           recipient: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAYine9qQWjvBhbxoEP5OFz7bWzuMwUZVPR+7VgfZd1X
         - enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBiTDZodHpjVUVEUHVtQ0JS
-            N3lBajZQanhYUWszblB2UkRiYkRlTXAwanpjClNhTk0xQWUxZHZZeXAzRXBlL2JU
-            UXNWYWR0aVBqVWx2dEdZUlpDd1NZdTAKLS0tIFhkRUk3YmZXRU1uOVJSdVhTL0t3
-            Njd5L202U3I1aVhtUWdQdHVJZ3YrajAKFydz6XjGmWui+muFxVXSjPvu4ttQ0gtI
-            R0eSKJtldhBUxjv4EDJqOQGzU/FQYM2hJy8/pFo7Cv56Hi6BfHoC2Q==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBmVnJ4b0NUcFhHV3BGUk1q
+            Qk96LzJ0cUVjenUxc3RqRWw3L0xRL0FZYnkwCnF5OCtnQU5PVUZPcktTWlFsMmpD
+            R1N5c3IyYjZ5T0R5dTlucXhXQ3FqdlEKLS0tIG1Gak9RbmFFOUcrWlZ2QWlRQUJo
+            cVFocnpDNnJkejFZVzVGbklQNlpQUGsKfLkh6Kqh+BP5tw6w6jhv9MDWBrUwpLDE
+            onjumvE3RLjys74F2FcG5Ja1dSftbJph8+rmlXJA+NyW6eB+pvjTCQ==
             -----END AGE ENCRYPTED FILE-----
           recipient: age1zkersaavam0z9fq6a8p5xwkw504csvel7gw5csm49vvvfyk6x9ksw2t49m
         - enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IHNzaC1lZDI1NTE5IGNnVERGUSBsTDZS
-            NGI4WlVndlFpUnEySXBHaDlOQlZkcGMzWWZpelRXNGVpSXhnQ213CkpSNXgvY0Jo
-            ckZZQitkenpuZGJvV2ppQmdkanBTdC94WG14aUVqNk9sQmMKLS0tIGt6WXlDSkdr
-            bnlCekUxUXZ2M1p3VkpTQ29WN0s1N0xVTVQrUzNNTnhrbDgKOguH7WZYbOXhO2Yq
-            VI7bkvlQL5kAvPFNGspZihPUeTXSttmfSZX8ox/n2qQFlGOW2ylJVbIv5TiDiQZ3
-            6DS/ZQ==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IHNzaC1lZDI1NTE5IFRnN2IwZyBySFk5
+            TDM0T2Jqb3RVSnlJRE5oaFFKdGZCUmhVb1FCUnA3eitDRmcxUEhZCjRzNVdFYlNW
+            MEcremx5cFA4NHA1TytmUnlCSlFvTGdYcit4OW1uQWx1ZlkKLS0tIHVwMFFpajY2
+            MUVlVUtJWWR2bjhGL3RBSHo4VWNFVEl0QjBPaUc0VmhWUkEKj44BNAA8q0sm90KI
+            VlCpvdsHyBz39GNrf0TBrz6HLBNiCRGm8ZVgf5SSNDshy8jY/unJgkMr6fS50uo+
+            lGo2ew==
             -----END AGE ENCRYPTED FILE-----
-          recipient: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPOqLcTHDmSWixB1H74ZayWiExXBPmEzfWC90I8Nh1Lb
+          recipient: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEYvFzxKITQThdEDskh56pVQYTenqu6mAQnW0XCjTb5G maciej@michalek.sh-2026-09-21
         - enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBtU3I1NjBnbXRRcXJVK0hN
-            WFE4NncxaDZrVlFha3VjelVvUTdFTWh4azFvCng5L1JGK2dGZkg3KzFtYU8ydkVm
-            S0ZOQWNTeTNKSXVlUFlkcFJuOUtSWk0KLS0tIEx4cktJK2pCOERRMTM1UlpKNmh3
-            TWxJa0lYcVRIbE9jdjhBbytJV2ZRTDAKbQng/3IzhU+3Oo+EQodywAJiBMRzXVco
-            +n0U1AQDEOfCUVKGLaaLjKwQP5c07LOQ7yL+Nz0AReYtbbQ8jgNZfA==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBkL0ZibXJXVzRiemsxNlVI
+            d3lIa2szR2x4WHdjS2M5ZWU5bktkTXVrWUZVClBQQ1VIV1BWWWJ6RU1kWVZOQXFV
+            YmtNbHl5NkZOVHBiSDI4Q0JXRFBxaDQKLS0tIFlRa2VERGhLM2FrOEVWV2VPbkRZ
+            Zm5GZ3BWNGMrbnZ3eFlhQ2VoVFl6TTQKxB68MMm8uJwS5Bn7CgIg6XNrE7jkrukO
+            wzPDdcSY6Goa4kElVJHyJxm1TWOOF40Wrw76mbognb7dftW3vRSMEQ==
             -----END AGE ENCRYPTED FILE-----
           recipient: age1ttrfgxxjy2ww7kurs6qpl7tv3vsypp323zln7ye2y23scyt48eqqvnuj6n
     encrypted_regex: ^(data|stringData)$

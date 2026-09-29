@@ -1,6 +1,4 @@
 ---
-clevis_bind_servers:
-    - http://10.5.137.3:7500
 zfs_primary_host: echoes
 zfs_primary_host_fqdn: "echoes.home.parents-basement.win"
 grafana_cloud_prometheus_url: "https://prometheus-prod-65-prod-eu-west-2.grafana.net/api/prom/push"
