@@ -1,6 +1,5 @@
 stages:
   - publish
-  - reconcile
 
 publish-fleet:
   stage: publish
@@ -338,30 +337,6 @@ publish-arr:
           job_image_name: "$CI_TEMPLATE_REGISTRY_HOST/starfruit6000/fluxcd/fluxcd"
           skip_reconcile: true
 
-reconcile-arr:
-  stage: reconcile
-  needs: ["publish-arr"]
-  allow_failure: true
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "main"'
-      changes:
-        - kubernetes/apps/components/arr/**/*
-  parallel:
-    matrix:
-      - CLUSTER: ["meddle", "animals", "meddle-local", "animals-local"]
-  trigger:
-    forward:
-      pipeline_variables: true
-    include:
-      - component: $CI_SERVER_FQDN/starfruit6000/fluxcd/reconcile@0.5.0
-        inputs:
-          version: "0.5.0"
-          flux_source_type: "oci"
-          flux_source_name: "apps"
-          flux_source_namespace: "arr"
-          kubernetes_agent_reference: "$CI_PROJECT_PATH:$CLUSTER"
-          job_image_name: "$CI_TEMPLATE_REGISTRY_HOST/starfruit6000/fluxcd/fluxcd"
-
 publish-seerr:
   stage: publish
   rules:
@@ -382,30 +357,6 @@ publish-seerr:
           flux_oci_namespace_name: "seerr"
           job_image_name: "$CI_TEMPLATE_REGISTRY_HOST/starfruit6000/fluxcd/fluxcd"
           skip_reconcile: true
-
-reconcile-seerr:
-  stage: reconcile
-  needs: ["publish-seerr"]
-  allow_failure: true
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "main"'
-      changes:
-        - kubernetes/apps/components/seerr/**/*
-  parallel:
-    matrix:
-      - CLUSTER: ["meddle", "animals", "meddle-local", "animals-local"]
-  trigger:
-    forward:
-      pipeline_variables: true
-    include:
-      - component: $CI_SERVER_FQDN/starfruit6000/fluxcd/reconcile@0.5.0
-        inputs:
-          version: "0.5.0"
-          flux_source_type: "oci"
-          flux_source_name: "apps"
-          flux_source_namespace: "seerr"
-          kubernetes_agent_reference: "$CI_PROJECT_PATH:$CLUSTER"
-          job_image_name: "$CI_TEMPLATE_REGISTRY_HOST/starfruit6000/fluxcd/fluxcd"
 
 publish-redmanager:
   stage: publish
@@ -428,30 +379,6 @@ publish-redmanager:
           job_image_name: "$CI_TEMPLATE_REGISTRY_HOST/starfruit6000/fluxcd/fluxcd"
           skip_reconcile: true
 
-reconcile-redmanager:
-  stage: reconcile
-  needs: ["publish-redmanager"]
-  allow_failure: true
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "main"'
-      changes:
-        - kubernetes/apps/components/redmanager/**/*
-  parallel:
-    matrix:
-      - CLUSTER: ["meddle", "animals", "meddle-local", "animals-local"]
-  trigger:
-    forward:
-      pipeline_variables: true
-    include:
-      - component: $CI_SERVER_FQDN/starfruit6000/fluxcd/reconcile@0.5.0
-        inputs:
-          version: "0.5.0"
-          flux_source_type: "oci"
-          flux_source_name: "apps"
-          flux_source_namespace: "redmanager"
-          kubernetes_agent_reference: "$CI_PROJECT_PATH:$CLUSTER"
-          job_image_name: "$CI_TEMPLATE_REGISTRY_HOST/starfruit6000/fluxcd/fluxcd"
-
 publish-copyparty:
   stage: publish
   rules:
@@ -472,30 +399,6 @@ publish-copyparty:
           flux_oci_namespace_name: "copyparty"
           job_image_name: "$CI_TEMPLATE_REGISTRY_HOST/starfruit6000/fluxcd/fluxcd"
           skip_reconcile: true
-
-reconcile-copyparty:
-  stage: reconcile
-  needs: ["publish-copyparty"]
-  allow_failure: true
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "main"'
-      changes:
-        - kubernetes/apps/components/copyparty/**/*
-  parallel:
-    matrix:
-      - CLUSTER: ["meddle", "animals", "meddle-local", "animals-local"]
-  trigger:
-    forward:
-      pipeline_variables: true
-    include:
-      - component: $CI_SERVER_FQDN/starfruit6000/fluxcd/reconcile@0.5.0
-        inputs:
-          version: "0.5.0"
-          flux_source_type: "oci"
-          flux_source_name: "apps"
-          flux_source_namespace: "copyparty"
-          kubernetes_agent_reference: "$CI_PROJECT_PATH:$CLUSTER"
-          job_image_name: "$CI_TEMPLATE_REGISTRY_HOST/starfruit6000/fluxcd/fluxcd"
 
 publish-s3:
   stage: publish
