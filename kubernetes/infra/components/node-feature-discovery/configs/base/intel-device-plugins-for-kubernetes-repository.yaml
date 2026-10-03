@@ -6,4 +6,4 @@ spec:
   interval: 1h
   url: https://github.com/intel/intel-device-plugins-for-kubernetes
   ref:
-    tag: v0.37.0
+    tag: v0.37.1
