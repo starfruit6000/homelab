@@ -22,6 +22,23 @@ resource "grafana_notification_policy" "infrastructure_routing" {
 
   policy {
     matcher {
+      label = "alertname"
+      match = "="
+      value = "DatasourceError"
+    }
+    matcher {
+      label = "datasource_uid"
+      match = "="
+      value = data.grafana_data_source.prometheus.uid
+    }
+
+    contact_point = "sysadmin"
+    group_by      = ["datasource_uid", "rulename"]
+    group_wait    = "24h"
+  }
+
+  policy {
+    matcher {
       label = "team"
       match = "="
       value = "sysadmin"

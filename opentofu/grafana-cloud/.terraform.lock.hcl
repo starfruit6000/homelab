@@ -5,7 +5,13 @@ provider "registry.opentofu.org/carlpett/sops" {
   version     = "1.4.1"
   constraints = "1.4.1"
   hashes = [
+    "h1:++2JmC1ykEcRLHiB7kRhqq9kfxH3H28zWWCGYJt6xwE=",
+    "h1:Bxls7vaSoHFx5oLyCC4BKWkF9A24QyYI+LDR0xwjyBo=",
+    "h1:CtjK3CV+eu5920uq2ma3cJrtPXgYqAhKoyNPsjsi2cE=",
     "h1:HyIxpskyTiLdJhGFJYzCk45IsG7zMe3K+y7em3k23BE=",
+    "h1:nTX8t1aP800EVoUFK9p7/IfSihRN3CAgTiawINe2CLY=",
+    "h1:vmBW+4J2FkW/zuDesBHYHpS4eqGZveI43AHwvDczzSw=",
+    "h1:znlUxdbGKlHDWA0hZ4E2nEW4h2x0fTsQD4pau4+KyRw=",
     "zh:4df8dea170a4cd926ca6ef0b9fa6fd1d8c1fa9bc9e78333d544a74c24e269cf9",
     "zh:5cf661333ec5d5cce3b7c0fc399052cf8f8c50f6cb0a50f5aec2f91d83685e1e",
     "zh:680616383404bc836a2d740a0dfae4691c18c8616f346e8fa795a1d790a2d888",
@@ -34,11 +40,16 @@ provider "registry.opentofu.org/grafana/grafana" {
     "h1:tnff/QwSep/A1c7HFobKCek6L3PStsp32+95DNjNTTk=",
     "h1:tySsPdFSi/b6WBPgd3c2eOjH3kOi4INrh7OPIXA26sM=",
     "zh:00df848de76f279769ea39f4211df9b4371f36965f6d953b2c2cbb3db7b56f5b",
+    "zh:28050fdd68ed79fbfc571d1974551d0f60e9e5f6eb27f70d188d242524d8a4f4",
     "zh:2b90bc1c1302d271d63971a768c398f07e0b99fe942d853b74d5be2fac6ef33b",
+    "zh:392cad7ad35f6b0def35c548d2b2aab41f37d187e299d36ef12987a965f56d26",
     "zh:458b3e22a4add9ee623ecd2b2bbbccdaaee4bde471cf7b56b94409368b23b103",
     "zh:4b14c5c5068cc59756f62c1e793faa8a1e249f1cfbe63c7a2c4eeacde62cb59e",
     "zh:630f3431d807b22094fa9af209856b2f90f51296bff0a6ad6d4509203d66742f",
+    "zh:83650ae8ca8f9436fa4ceb6d8501d15769bf6fccb915880058c06f100428bf98",
     "zh:8820aef63222aadca0f1fb185cf5f0aead3396ba88341e3578fd1ebe3c5a70f1",
+    "zh:8ef30b6468e168e1573739871dc4c921aef5dc1cdce537bf3e84fea52a0edb5f",
+    "zh:9669217bf56f2305ac72c707ad1a1f0f4dfbc3cf1aadd56d74a6b5f1a5d70f34",
     "zh:97c58572e862cb19a741cd0d18d7b3699afc598ffa569a7a51903beb57feb81c",
     "zh:a2ef5c734a5c926561c8d77d435adf01252aa565f6243ab8c8d6f5f5005e3392",
     "zh:a3427dfc698e872b62fdb1fb48fe12370ba960fb342b558934b5f5fc869a35f7",
@@ -46,5 +57,6 @@ provider "registry.opentofu.org/grafana/grafana" {
     "zh:cedd7188a479d2a90ececd9ebc5c80cbbd048fdc8e9cb3cded66d31c5c680f0e",
     "zh:ddff90ee7588e418c2224384e8ae034f6138fce6f7da5228a76d52bbba26bd01",
     "zh:f0f0a955a3f53c8e49c6289215588dc38237693a3259f564337d16ffe1adf15f",
+    "zh:fc92c2a6a87baf547029483c95f2fddb71a2e55c315e5111feee4b836b191e28",
   ]
 }

@@ -1,8 +1,22 @@
 terraform {
   backend "http" {}
   encryption {
+    key_provider "external" "keyring" {
+      command = [
+        "bash",
+        "-o", "pipefail",
+        "-c", <<-EOT
+          set -euo pipefail
+          printf '%s\n' '{"magic":"OpenTofu-External-Key-Provider","version":1}'
+          cat >/dev/null
+          key="$(secret-tool lookup service opentofu account homelab-grafana-cloud-state | tr -d '\n' | base64 -w0)"
+          test -n "$key"
+          printf '{"keys":{"encryption_key":"%s","decryption_key":"%s"},"meta":{"external_data":{}}}' "$key" "$key"
+        EOT
+      ]
+    }
     key_provider "pbkdf2" "this" {
-      passphrase = var.state_passphrase
+      chain = key_provider.external.keyring
     }
     method "aes_gcm" "this" {
       keys = key_provider.pbkdf2.this

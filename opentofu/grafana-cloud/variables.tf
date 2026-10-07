@@ -8,8 +8,3 @@ variable "prometheus_datasource_uid" {
   type        = string
   default     = "parentsxbasement-prom"
 }
-
-variable "state_passphrase" {
-  type      = string
-  sensitive = true
-}

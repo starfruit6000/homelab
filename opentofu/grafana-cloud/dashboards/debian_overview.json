@@ -1,6 +1,48 @@
 {
-  "title": "Debian Overview",
+  "title": "Kubernetes Volume Usage",
   "uid": "debian-overview",
   "schemaVersion": 36,
-  "panels": []
+  "version": 1,
+  "refresh": "1m",
+  "time": { "from": "now-24h", "to": "now" },
+  "templating": { "list": [] },
+  "panels": [
+    {
+      "id": 1,
+      "type": "table",
+      "title": "arr / data PVC usage",
+      "description": "Usage reported by kubelet for the data PVC in the arr namespace.",
+      "datasource": { "type": "prometheus", "uid": "parentsxbasement-prom" },
+      "gridPos": { "h": 12, "w": 24, "x": 0, "y": 0 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 75 },
+              { "color": "red", "value": 90 }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true,
+        "sortBy": [{ "displayName": "Used %", "desc": true }]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "editorMode": "code",
+          "expr": "100 * kubelet_volume_stats_used_bytes{namespace=\"arr\", persistentvolumeclaim=\"data\"} / kubelet_volume_stats_capacity_bytes{namespace=\"arr\", persistentvolumeclaim=\"data\"}",
+          "instant": true,
+          "legendFormat": "arr / data"
+        }
+      ]
+    }
+  ]
 }

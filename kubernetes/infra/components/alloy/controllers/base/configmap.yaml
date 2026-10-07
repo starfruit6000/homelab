@@ -69,7 +69,7 @@ data:
       rule {
         action        = "keep"
         source_labels = ["__name__"]
-        regex         = "(kubelet_running_pods|kubelet_running_containers|kubelet_node_name|up|process_cpu_seconds_total|process_resident_memory_bytes)"
+        regex         = "(kubelet_running_pods|kubelet_running_containers|kubelet_node_name|kubelet_volume_stats_used_bytes|kubelet_volume_stats_capacity_bytes|kubelet_volume_stats_available_bytes|up|process_cpu_seconds_total|process_resident_memory_bytes)"
       }
       forward_to = [prometheus.remote_write.grafanacloud.receiver]
     }
