@@ -295,27 +295,6 @@ publish-rbac:
           job_image_name: "$CI_TEMPLATE_REGISTRY_HOST/starfruit6000/fluxcd/fluxcd"
           skip_reconcile: true
 
-publish-gitlab-agent:
-  stage: publish
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "main"'
-      changes:
-        - kubernetes/infra/components/gitlab-agent/**/*
-  trigger:
-    forward:
-      pipeline_variables: true
-    include:
-      - component: $CI_SERVER_FQDN/starfruit6000/fluxcd/oci-artifact@0.5.0
-        inputs:
-          version: "0.5.0"
-          registry_image_url: "oci://$CI_REGISTRY_IMAGE/infra/gitlab-agent"
-          image_tag: "latest"
-          manifest_path: "./kubernetes/infra/components/gitlab-agent"
-          flux_oci_repo_name: "infra"
-          flux_oci_namespace_name: "gitlab-agent"
-          job_image_name: "$CI_TEMPLATE_REGISTRY_HOST/starfruit6000/fluxcd/fluxcd"
-          skip_reconcile: true
-
 publish-arr:
   stage: publish
   rules:
