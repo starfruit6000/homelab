@@ -15,6 +15,9 @@ spec:
       labels:
         app.kubernetes.io/name: paper-oci
     spec:
+      securityContext:
+        fsGroup: 1234
+        fsGroupChangePolicy: Always
       nodeSelector:
         cloud.google.com/compute-class: Performance
         cloud.google.com/machine-family: c4
@@ -22,17 +25,23 @@ spec:
         - name: paper-oci-data
           persistentVolumeClaim:
             claimName: paper-oci-data
+        - name: paper-eula
+          configMap:
+            name: paper-eula
       containers:
         - name: paper-oci
-          image: europe-central2-docker.pkg.dev/gcp-lab-pl-fed059c83c5b8ef0/gcp-lab-pl/paper-oci:latest
+          image: europe-central2-docker.pkg.dev/gcp-lab-pl-fed059c83c5b8ef0/gcp-lab-pl/paper-oci@sha256:9499d4bed81762a5930eae36325ca3407b3d288874bbe28d6ec559592fe12c2c
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: paper-oci-data
               mountPath: /data
+            - name: paper-eula
+              mountPath: /data/eula.txt
+              subPath: eula.txt
           resources:
             requests:
               cpu: "2"
-              memory: 4Gi
+              memory: 6Gi
             limits:
-              cpu: "4"
+              cpu: "2"
               memory: 8Gi
