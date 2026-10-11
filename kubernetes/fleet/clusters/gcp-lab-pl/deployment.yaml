@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paper-oci
+  namespace: gcp-lab-pl
+  labels:
+    app.kubernetes.io/name: paper-oci
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: paper-oci
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: paper-oci
+    spec:
+      nodeSelector:
+        cloud.google.com/compute-class: Performance
+        cloud.google.com/machine-family: c4
+      containers:
+        - name: paper-oci
+          image: europe-central2-docker.pkg.dev/gcp-lab-pl-fed059c83c5b8ef0/gcp-lab-pl/paper-oci:latest
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: "2"
+              memory: 4Gi
+            limits:
+              cpu: "4"
+              memory: 8Gi
