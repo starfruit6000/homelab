@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: paper-oci
+  namespace: gcp-lab-pl
+spec:
+  type: LoadBalancer
+  selector:
+    app.kubernetes.io/name: paper-oci
+  ports:
+    - name: minecraft
+      port: 25565
+      targetPort: 25565

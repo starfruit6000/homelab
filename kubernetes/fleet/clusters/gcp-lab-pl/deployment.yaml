@@ -18,10 +18,17 @@ spec:
       nodeSelector:
         cloud.google.com/compute-class: Performance
         cloud.google.com/machine-family: c4
+      volumes:
+        - name: paper-oci-data
+          persistentVolumeClaim:
+            claimName: paper-oci-data
       containers:
         - name: paper-oci
           image: europe-central2-docker.pkg.dev/gcp-lab-pl-fed059c83c5b8ef0/gcp-lab-pl/paper-oci:latest
           imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: paper-oci-data
+              mountPath: /data
           resources:
             requests:
               cpu: "2"
