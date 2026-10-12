@@ -1,78 +1,14 @@
-resource "google_project_service" "this" {
-  for_each = toset([
-    "compute.googleapis.com",
-    "container.googleapis.com",
-    "gkehub.googleapis.com",
-    "anthosconfigmanagement.googleapis.com",
-    "logging.googleapis.com",
-    "monitoring.googleapis.com",
-  ])
-
-  project = var.project_id
-  service = each.value
-}
-
-data "google_project" "this" {
-  project_id = var.project_id
-}
-
-resource "google_compute_network" "this" {
-  project                  = var.project_id
-  name                     = data.google_project.this.name
-  auto_create_subnetworks  = false
-  enable_ula_internal_ipv6 = true
-}
-
-resource "google_compute_subnetwork" "gke" {
-  project          = var.project_id
-  name             = "nodes"
-  ip_cidr_range    = "10.6.137.0/24"
-  stack_type       = "IPV4_IPV6"
-  ipv6_access_type = "INTERNAL"
-  region           = var.region
-  network          = google_compute_network.this.id
-
-  secondary_ip_range {
-    range_name    = "pods"
-    ip_cidr_range = "10.6.0.0/18"
-  }
-
-  secondary_ip_range {
-    range_name    = "services"
-    ip_cidr_range = "10.6.64.0/20"
-  }
-}
-
-resource "google_compute_subnetwork" "management" {
-  project          = var.project_id
-  name             = "management"
-  ip_cidr_range    = "10.8.137.0/24"
-  stack_type       = "IPV4_IPV6"
-  ipv6_access_type = "INTERNAL"
-  region           = var.region
-  network          = google_compute_network.this.id
-}
-
-resource "google_compute_subnetwork" "external" {
-  project          = var.project_id
-  name             = "external"
-  ip_cidr_range    = "10.9.137.0/24"
-  stack_type       = "IPV4_IPV6"
-  ipv6_access_type = "EXTERNAL"
-  region           = var.region
-  network          = google_compute_network.this.id
-}
-
 resource "google_container_cluster" "gcp_lab" {
-  enable_autopilot = true
-  location         = var.region
-  name             = "gcp-lab"
-  network          = google_compute_network.this.id
-  project          = var.project_id
-  subnetwork       = "projects/${var.project_id}/regions/${var.region}/subnetworks/nodes"
-  fleet {
-    project = var.project_id
-  }
+  enable_autopilot   = true
+  location           = var.region
+  min_master_version = "1.37.1-gke.1552000"
+  name               = "gcp-lab"
+  network            = google_compute_network.this.id
+  project            = var.project_id
+  subnetwork         = "projects/${var.project_id}/regions/${var.region}/subnetworks/nodes"
+  # fleet {
+  #   project = var.project_id
+  # }
   addons_config {
     gce_persistent_disk_csi_driver_config {
       enabled = true
@@ -208,29 +144,29 @@ resource "google_container_cluster" "gcp_lab" {
   depends_on = [google_project_service.this]
 }
 
-resource "google_gke_hub_feature" "configmanagement" {
-  name     = "configmanagement"
-  location = "global"
-
-  depends_on = [google_project_service.this]
-}
-
-resource "google_gke_hub_feature_membership" "configmanagement" {
-  location            = "global"
-  feature             = google_gke_hub_feature.configmanagement.name
-  membership          = google_container_cluster.gcp_lab.name
-  membership_location = google_container_cluster.gcp_lab.location
-
-  configmanagement {
-    config_sync {
-      enabled = true
-      oci {
-        sync_repo   = "oci://registry.gitlab.com/starfruit6000/homelab/fleet"
-        policy_dir  = "clusters/gcp-lab-pl"
-        secret_type = "none"
-      }
-    }
-  }
-
-  depends_on = [google_container_cluster.gcp_lab]
-}
+# resource "google_gke_hub_feature" "configmanagement" {
+#   name     = "configmanagement"
+#   location = "global"
+#
+#   depends_on = [google_project_service.this]
+# }
+#
+# resource "google_gke_hub_feature_membership" "configmanagement" {
+#   location            = "global"
+#   feature             = google_gke_hub_feature.configmanagement.name
+#   membership          = google_container_cluster.gcp_lab.name
+#   membership_location = google_container_cluster.gcp_lab.location
+#
+#   configmanagement {
+#     config_sync {
+#       enabled = true
+#       oci {
+#         sync_repo   = "oci://registry.gitlab.com/starfruit6000/homelab/fleet"
+#         policy_dir  = "clusters/gcp-lab-pl"
+#         secret_type = "none"
+#       }
+#     }
+#   }
+#
+#   depends_on = [google_container_cluster.gcp_lab]
+# }
