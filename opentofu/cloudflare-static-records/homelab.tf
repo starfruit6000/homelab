@@ -82,3 +82,21 @@ resource "cloudflare_dns_record" "root_gh_pages_4" {
   type    = "A"
   zone_id = data.cloudflare_zones.homelab.result[0].id
 }
+
+resource "cloudflare_dns_record" "minecraft" {
+  content = "34.118.93.238"
+  name    = "minecraft.${data.cloudflare_zones.homelab.name}"
+  proxied = false
+  ttl     = 1
+  type    = "A"
+  zone_id = data.cloudflare_zones.homelab.result[0].id
+}
+
+resource "cloudflare_dns_record" "drasl" {
+  content = "8.232.95.89"
+  name    = "drasl.${data.cloudflare_zones.homelab.name}"
+  proxied = false
+  ttl     = 1
+  type    = "A"
+  zone_id = data.cloudflare_zones.homelab.result[0].id
+}
