@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: paper-oci-data
+  name: paper-data
   namespace: gcp-lab-pl
 spec:
   accessModes:

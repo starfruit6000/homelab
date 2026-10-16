@@ -3,10 +3,10 @@ kind: Deployment
 metadata:
   name: paper-oci
   namespace: gcp-lab-pl
-  labels:
-    app.kubernetes.io/name: paper-oci
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/name: paper-oci
@@ -15,29 +15,43 @@ spec:
       labels:
         app.kubernetes.io/name: paper-oci
     spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 120
       securityContext:
         fsGroup: 1234
-        fsGroupChangePolicy: Always
+        fsGroupChangePolicy: OnRootMismatch
       nodeSelector:
         cloud.google.com/compute-class: Performance
         cloud.google.com/machine-family: c4
-      volumes:
-        - name: paper-oci-data
-          persistentVolumeClaim:
-            claimName: paper-oci-data
-        - name: paper-eula
-          configMap:
-            name: paper-eula
       containers:
         - name: paper-oci
-          image: europe-central2-docker.pkg.dev/gcp-lab-pl-fed059c83c5b8ef0/gcp-lab-pl/paper-oci@sha256:9499d4bed81762a5930eae36325ca3407b3d288874bbe28d6ec559592fe12c2c
+          image: europe-central2-docker.pkg.dev/gcp-lab-pl-fed059c83c5b8ef0/gcp-lab-pl/paper-oci@sha256:ad407ba6a6171ba84f99e602fc437da668f4c423b277efd8879fc69b22e035d9
           imagePullPolicy: IfNotPresent
+          # Appended to the image's Java entrypoint; Paper generates its own config.
+          args: ["--online-mode", "false"]
+          workingDir: /data
+          stdin: true
+          stdinOnce: false
+          tty: true
           volumeMounts:
-            - name: paper-oci-data
+            - name: data
               mountPath: /data
-            - name: paper-eula
+            - name: eula
               mountPath: /data/eula.txt
               subPath: eula.txt
+              readOnly: true
+          ports:
+            - name: minecraft
+              containerPort: 25565
+          startupProbe:
+            tcpSocket:
+              port: minecraft
+            periodSeconds: 10
+            failureThreshold: 60
+          readinessProbe:
+            tcpSocket:
+              port: minecraft
+            periodSeconds: 10
           resources:
             requests:
               cpu: "2"
@@ -45,3 +59,10 @@ spec:
             limits:
               cpu: "2"
               memory: 8Gi
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: paper-data
+        - name: eula
+          configMap:
+            name: paper-eula
