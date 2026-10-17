@@ -73,24 +73,3 @@ spec:
                 operator: In
                 values:
                   - tenant
-    - apiVersion: rbac.authorization.k8s.io/v1
-      kind: ClusterRole
-      metadata:
-        name: gitlab-agent-flux-reconciler
-      rules:
-        - apiGroups:
-            - source.toolkit.fluxcd.io
-            - kustomize.toolkit.fluxcd.io
-            - helm.toolkit.fluxcd.io
-            - fluxcd.controlplane.io
-          resources:
-            - gitrepositories
-            - kustomizations
-            - helmreleases
-            - fluxinstances
-          verbs:
-            - get
-            - list
-            - watch
-            - patch
-            - update

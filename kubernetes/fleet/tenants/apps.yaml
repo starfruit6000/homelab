@@ -126,16 +126,3 @@ spec:
           substituteFrom:
             - kind: ConfigMap
               name: flux-runtime-info
-    - apiVersion: rbac.authorization.k8s.io/v1
-      kind: RoleBinding
-      metadata:
-        name: gitlab-agent-flux-reconciler
-        namespace: << inputs.tenant >>
-      roleRef:
-        apiGroup: rbac.authorization.k8s.io
-        kind: ClusterRole
-        name: gitlab-agent-flux-reconciler
-      subjects:
-        - kind: ServiceAccount
-          name: gitlab-agent
-          namespace: gitlab-agent
