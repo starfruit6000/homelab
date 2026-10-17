@@ -11,3 +11,4 @@ resources:
 - public-gateway.yaml
 - securitypolicy.yaml
 - sso-gateway.yaml
+- keycloak-secret-reader-rbac.yaml

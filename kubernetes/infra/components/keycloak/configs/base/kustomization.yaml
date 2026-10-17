@@ -9,3 +9,7 @@ resources:
 - terraform-client-secret-password.yaml
 - terraform-externalsecret.yaml
 - keycloakrealmimport.yaml
+- secret-reader-rbac.yaml
+- secret-stores.yaml
+- client-externalsecrets.yaml
+- envoy-oidc-client.yaml

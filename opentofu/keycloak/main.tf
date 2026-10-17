@@ -4,21 +4,14 @@ resource "keycloak_realm" "homelab" {
   display_name = "Homelab Single Sign-On"
 }
 
-resource "keycloak_openid_client" "envoy_gateway" {
-  realm_id                     = keycloak_realm.homelab.id
-  client_id                    = "envoy-gateway"
-  name                         = "Envoy SSO Gateway"
-  enabled                      = true
-  access_type                  = "CONFIDENTIAL"
-  client_secret                = data.kubernetes_secret_v1.envoy_oidc.data["client-secret"]
-  standard_flow_enabled        = true
-  direct_access_grants_enabled = true
-  valid_redirect_uris = [
-    for app in local.sso_apps : "https://${app}${local.route_suffix}.${local.homelab_internal_subdomain}/*"
-  ]
-  web_origins = [
-    "+"
-  ]
+# The Keycloak operator now manages this client through KeycloakOIDCClient.
+# Forget the old state entry without deleting the existing SSO client.
+removed {
+  from = keycloak_openid_client.envoy_gateway
+
+  lifecycle {
+    destroy = false
+  }
 }
 
 resource "keycloak_realm_user_profile" "homelab_profile" {

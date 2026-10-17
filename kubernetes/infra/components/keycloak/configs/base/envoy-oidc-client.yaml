@@ -1,0 +1,25 @@
+apiVersion: k8s.keycloak.org/v2alpha1
+kind: KeycloakOIDCClient
+metadata:
+  name: envoy-gateway
+spec:
+  keycloakCRName: keycloak
+  realm: homelab
+  client:
+    displayName: Envoy SSO Gateway
+    enabled: true
+    auth:
+      method: client-secret
+      secretRef:
+        name: centralized-oidc-secret
+        key: client-secret
+    loginFlows:
+      - STANDARD
+      - DIRECT_GRANT
+    redirectUris:
+      - https://sonarr${ROUTE_SUFFIX}.${HOMELAB_INTERNAL_SUBDOMAIN}/*
+      - https://radarr${ROUTE_SUFFIX}.${HOMELAB_INTERNAL_SUBDOMAIN}/*
+      - https://prowlarr${ROUTE_SUFFIX}.${HOMELAB_INTERNAL_SUBDOMAIN}/*
+      - https://qbittorrent${ROUTE_SUFFIX}.${HOMELAB_INTERNAL_SUBDOMAIN}/*
+    webOrigins:
+      - "+"

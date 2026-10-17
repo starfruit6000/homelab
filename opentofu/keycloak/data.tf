@@ -12,13 +12,6 @@ data "kubernetes_secret_v1" "terraform_admin" {
   }
 }
 
-data "kubernetes_secret_v1" "envoy_oidc" {
-  metadata {
-    name      = "centralized-oidc-secret"
-    namespace = "envoy-gateway-system"
-  }
-}
-
 data "kubernetes_config_map_v1" "flux_runtime_info" {
   metadata {
     name      = "flux-runtime-info"
