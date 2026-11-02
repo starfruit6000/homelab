@@ -3,7 +3,7 @@ roles:
   - name: linux-system-roles.journald
     version: 1.7.0
   - name: linux-system-roles.nbde_client
-    version: 1.7.0
+    version: 1.8.0
   - name: geerlingguy.sanoid
     version: 1.0.0
 
