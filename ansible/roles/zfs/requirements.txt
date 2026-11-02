@@ -16,7 +16,7 @@ pluggy==1.6.0
 propcache==0.5.2
 Pygments==2.20.0
 pytest==9.1.1
-python-dateutil==2.9.0.post0
+python-dateutil==4.0.0
 PyYAML==6.0.3
 requests==2.34.2
 requests-oauthlib==2.0.0
