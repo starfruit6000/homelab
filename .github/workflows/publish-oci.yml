@@ -1,0 +1,118 @@
+name: push-artifact
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+    tags:
+      - '*'
+    paths:
+      - kubernetes/**
+
+jobs:
+  flux-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    strategy:
+      matrix:
+        include:
+          # d2-fleet
+          - artifact: fleet
+            path: kubernetes/fleet
+          # d2-infra
+          - artifact: infra/cert-manager
+            path: kubernetes/infra/components/cert-manager
+          - artifact: infra/openebs
+            path: kubernetes/infra/components/openebs
+          - artifact: infra/seaweedfs-operator
+            path: kubernetes/infra/components/seaweedfs-operator
+          - artifact: infra/velero
+            path: kubernetes/infra/components/velero
+          - artifact: infra/envoy-gateway-system
+            path: kubernetes/infra/components/envoy-gateway-system
+          - artifact: infra/cnpg-system
+            path: kubernetes/infra/components/cnpg-system
+          - artifact: infra/external-dns
+            path: kubernetes/infra/components/external-dns
+          - artifact: infra/external-secrets
+            path: kubernetes/infra/components/external-secrets
+          - artifact: infra/keycloak
+            path: kubernetes/infra/components/keycloak
+          - artifact: infra/alloy
+            path: kubernetes/infra/components/alloy
+          - artifact: infra/node-feature-discovery
+            path: kubernetes/infra/components/node-feature-discovery
+          - artifact: infra/inteldeviceplugins-system
+            path: kubernetes/infra/components/inteldeviceplugins-system
+          - artifact: infra/rbac
+            path: kubernetes/infra/components/rbac
+          # d2-apps
+          - artifact: apps/arr
+            path: kubernetes/apps/components/arr
+          - artifact: apps/seerr
+            path: kubernetes/apps/components/seerr
+          - artifact: apps/redmanager
+            path: kubernetes/apps/components/redmanager
+          - artifact: apps/copyparty
+            path: kubernetes/apps/components/copyparty
+          - artifact: apps/s3
+            path: kubernetes/apps/components/s3
+          - artifact: apps/nfsserver
+            path: kubernetes/apps/components/nfsserver
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Install flux
+        uses: controlplaneio-fluxcd/distribution/actions/setup@main
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v4.1.2
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Prepare tags
+        id: prep
+        env:
+          ARTIFACT: ${{ matrix.artifact }}
+        run: |
+          TAG=latest
+          VERSION="${GITHUB_REF_NAME}-${GITHUB_SHA::8}"
+          if [[ $GITHUB_REF == refs/tags/* ]]; then
+            TAG=latest-stable
+            VERSION="$GITHUB_REF_NAME"
+          fi
+          repository="${GITHUB_REPOSITORY,,}"
+          echo "repository=ghcr.io/${repository}/${ARTIFACT}" >> "$GITHUB_OUTPUT"
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+      - name: Push artifact
+        id: push
+        uses: controlplaneio-fluxcd/distribution/actions/push@main
+        with:
+          repository: ${{ steps.prep.outputs.repository }}
+          path: ${{ matrix.path }}
+          diff-tag: ${{ steps.prep.outputs.tag }}
+          tags: ${{ steps.prep.outputs.version }}
+      - name: Sign artifact
+        if: steps.push.outputs.pushed == 'true'
+        run: cosign sign --yes "$DIGEST_URL"
+        env:
+          DIGEST_URL: ${{ steps.push.outputs.digest-url }}
+#      - name: Summarize published artifact
+#        env:
+#          REPOSITORY: ${{ steps.prep.outputs.repository }}
+#          DIGEST_URL: ${{ steps.push.outputs.digest-url }}
+#          PUSHED: ${{ steps.push.outputs.pushed }}
+#        run: |
+#          if [[ "$PUSHED" == true ]]; then
+#            echo "Published \`oci://${REPOSITORY}:latest\` from \`$GITHUB_SHA\`." >> "$GITHUB_STEP_SUMMARY"
+#            echo "Digest: \`$DIGEST_URL\`." >> "$GITHUB_STEP_SUMMARY"
+#          else
+#            echo "Unchanged: \`oci://${REPOSITORY}:latest\`." >> "$GITHUB_STEP_SUMMARY"
+#          fi
