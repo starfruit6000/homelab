@@ -1,7 +1,5 @@
 # Homelab
 
-This repository contains config files for my homelab. I try to keep everything defined in code, using Terraform [(link to provider)](https://github.com/bpg/terraform-provider-proxmox) and Ansible.
-
 ## How to set up
 
 1. Configure Cloudflare DNS records
