@@ -8,7 +8,7 @@ durationpy==0.10
 frozenlist==1.8.0
 idna==3.18
 iniconfig==2.3.0
-kubernetes==36.0.3
+kubernetes==37.0.2
 multidict==6.7.1
 oauthlib==3.3.1
 packaging==26.3
