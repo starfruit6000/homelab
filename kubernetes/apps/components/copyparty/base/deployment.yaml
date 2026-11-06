@@ -21,7 +21,7 @@ spec:
         fsGroupChangePolicy: "OnRootMismatch"
       containers:
         - name: copyparty
-          image: docker.io/copyparty/dj:1.20.21@sha256:c94e99d2d0302e83ea0c25977fa8af9861ce41a805ec618084ab24614fcb0fb5
+          image: docker.io/copyparty/dj:1.20.26@sha256:c8b279b62e7e05d99d1ac7acac3876ebea90c54b16ca3e2b966e7381fc53b6f9
           securityContext:
             seccompProfile:
               type: RuntimeDefault
