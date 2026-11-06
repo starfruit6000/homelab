@@ -9,7 +9,7 @@ frozenlist==1.8.0
 idna==3.18
 iniconfig==2.3.0
 kubernetes==36.0.3
-multidict==6.7.1
+multidict==7.2.1
 oauthlib==3.3.1
 packaging==26.3
 pluggy==1.6.0
