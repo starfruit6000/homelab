@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/universal:linux
+FROM mcr.microsoft.com/devcontainers/universal:linux@sha256:7d644a3e845e78e2175c9c265a383436c93ab740e77947bbcaff9592e39f7205
 
 USER codespace
 ENV HOME=/home/codespace
