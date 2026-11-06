@@ -1,0 +1,13 @@
+{
+  "name": "Codex in Codespaces",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "init": true,
+  "features": {
+    "ghcr.io/devcontainers/features/sshd:1": {
+      "version": "latest"
+    }
+  },
+  "remoteUser": "codespace"
+}
