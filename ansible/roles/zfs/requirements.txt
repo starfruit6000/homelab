@@ -12,7 +12,7 @@ kubernetes==36.0.3
 multidict==6.7.1
 oauthlib==3.3.1
 packaging==26.3
-pluggy==1.6.0
+pluggy==1.7.0
 propcache==0.5.2
 Pygments==2.20.0
 pytest==9.1.1
