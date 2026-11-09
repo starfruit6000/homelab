@@ -33,7 +33,7 @@ spec:
               mountPath: /data
       containers:
         - name: radarr
-          image: ghcr.io/home-operations/radarr:6.4.4@sha256:be53998a2d39cfa3c3315b70c7509a6a1f2a10c3aee9337653efc9f4c970430e
+          image: ghcr.io/home-operations/radarr:7.0.2@sha256:69ea515df6e2a3ea1490cfa127ffaaf9597a9db84fffa2fa150a6fae98fe04cb
           env:
             - name: RADARR__AUTH__APIKEY
               valueFrom:
