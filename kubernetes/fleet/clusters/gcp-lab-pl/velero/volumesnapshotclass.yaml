@@ -1,0 +1,8 @@
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotClass
+metadata:
+  name: velero-gce-pd
+  labels:
+    velero.io/csi-volumesnapshot-class: "true"
+driver: pd.csi.storage.gke.io
+deletionPolicy: Delete

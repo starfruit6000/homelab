@@ -1,0 +1,83 @@
+# Install separately with Helm: this cluster does not currently bootstrap Flux.
+# Chart 12.2.0 installs Velero 1.18.2; GCP plugin 1.14.x matches Velero 1.18.x.
+initContainers:
+  - name: velero-plugin-for-gcp
+    image: velero/velero-plugin-for-gcp:v1.14.4
+    volumeMounts:
+      - name: plugins
+        mountPath: /target
+
+credentials:
+  useSecret: false
+
+serviceAccount:
+  server:
+    name: velero
+    annotations:
+      iam.gke.io/gcp-service-account: velero@gcp-lab-pl-fed059c83c5b8ef0.iam.gserviceaccount.com
+
+configuration:
+  features: EnableCSI
+  uploaderType: kopia
+  defaultVolumesToFsBackup: false
+  backupStorageLocation:
+    - name: default
+      provider: gcp
+      bucket: gcp-lab-pl-fed059c83c5b8ef0-velero
+      default: true
+      config:
+        serviceAccount: velero@gcp-lab-pl-fed059c83c5b8ef0.iam.gserviceaccount.com
+  # Disk operations go through GKE's CSI controller, not the GCP snapshot plugin.
+  volumeSnapshotLocation: []
+  repositoryMaintenanceJob:
+    repositoryConfigData:
+      global:
+        podResources:
+          cpuRequest: 500m
+          memoryRequest: 512Mi
+          memoryLimit: 1Gi
+        keepLatestMaintenanceJobs: 2
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 512Mi
+  limits:
+    memory: 1Gi
+
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop: [ALL]
+
+deployNodeAgent: true
+nodeAgent:
+  # Required for Autopilot: CSI data movement needs no kubelet host mounts.
+  disableHostPath: true
+  extraArgs:
+    - --node-agent-configmap=velero-node-agent-config
+  containerSecurityContext:
+    privileged: false
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: [ALL]
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      memory: 512Mi
+
+schedules:
+  paper-daily:
+    skipImmediately: true
+    schedule: "CRON_TZ=Etc/UTC 0 4 * * *"
+    template:
+      includedNamespaces: [gcp-lab-pl]
+      storageLocation: default
+      snapshotVolumes: true
+      snapshotMoveData: true
+      defaultVolumesToFsBackup: false
+      csiSnapshotTimeout: 5m
+      itemOperationTimeout: 2h
+      ttl: 720h

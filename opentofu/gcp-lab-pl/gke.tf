@@ -20,7 +20,7 @@ resource "google_container_cluster" "gcp_lab" {
       enabled = true
     }
     gke_backup_agent_config {
-      enabled = false
+      enabled = true
     }
     http_load_balancing {
       disabled = false
