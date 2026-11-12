@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/universal:linux
+FROM mcr.microsoft.com/devcontainers/base:trixie
 
 USER codespace
 ENV HOME=/home/codespace

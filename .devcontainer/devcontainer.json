@@ -1,13 +1,13 @@
 {
-  "name": "Codex in Codespaces",
+  "name": "homelab",
   "build": {
     "dockerfile": "Dockerfile"
   },
   "init": true,
   "features": {
-    "ghcr.io/devcontainers/features/sshd:1": {
-      "version": "latest"
-    }
+    "ghcr.io/devcontainers/features/copilot-cli:1": {},
+    "ghcr.io/devcontainers/features/sshd:1": {},
+    "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {}
   },
   "remoteUser": "codespace"
 }
