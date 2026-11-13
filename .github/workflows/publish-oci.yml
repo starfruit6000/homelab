@@ -65,13 +65,13 @@ jobs:
             path: kubernetes/apps/components/nfsserver
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - name: Install flux
-        uses: controlplaneio-fluxcd/distribution/actions/setup@main
+        uses: controlplaneio-fluxcd/distribution/actions/setup@d920cf0e370aebd3585a587e028b3a72c3e3bd9f # main
       - name: Install cosign
-        uses: sigstore/cosign-installer@v4.1.2
+        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v4
+        uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -93,7 +93,7 @@ jobs:
           echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
       - name: Push artifact
         id: push
-        uses: controlplaneio-fluxcd/distribution/actions/push@main
+        uses: controlplaneio-fluxcd/distribution/actions/push@d920cf0e370aebd3585a587e028b3a72c3e3bd9f # main
         with:
           repository: ${{ steps.prep.outputs.repository }}
           path: ${{ matrix.path }}
