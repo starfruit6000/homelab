@@ -1,7 +1,6 @@
 { system ? "x86_64-linux", nixpkgs ? <nixpkgs> }:
 
 let
-  pkgs = import nixpkgs { inherit system; };
   mkHost = host: modules: import "${nixpkgs}/nixos/lib/eval-config.nix" {
     inherit system;
     modules = [
@@ -17,19 +16,9 @@ let
         message = "Generate and add nixos/hosts/${host}-hardware.nix before deploying this host.";
       }];
     };
-in rec {
+in {
   nixosConfigurations = {
     dogs = mkHost "dogs" [ ./production.nix (hardware "dogs") ];
     echoes = mkHost "echoes" [ ./production.nix (hardware "echoes") ];
-  };
-  tools = pkgs.buildEnv {
-    name = "homelab-tools";
-    paths = with pkgs; [
-      age ansible fluxcd kubectl kubernetes-helm kustomize opentofu sops
-    ];
-  };
-  platform-tools = pkgs.buildEnv {
-    name = "homelab-platform-tools";
-    paths = [ tools pkgs.nixos-build-vms ];
   };
 }

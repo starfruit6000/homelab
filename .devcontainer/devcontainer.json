@@ -10,11 +10,5 @@
     "ghcr.io/devcontainers/features/sshd:1": {},
     "ghcr.io/devcontainers/features/nix:1": {}
   },
-  "remoteEnv": {
-    "PATH": "/home/vscode/.nix-profile/bin:/home/vscode/.local/state/nix/profile/bin:${containerEnv:PATH}"
-  },
-  "postCreateCommand": [
-    "nix-env", "-i", "-f", "${containerWorkspaceFolder}/nixos", "-A", "tools"
-  ],
   "remoteUser": "vscode"
 }
