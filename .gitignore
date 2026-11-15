@@ -13,6 +13,8 @@ terraform.rc
 preseed.cfg
 .venv
 *.iso
+/dogs.qcow2
+/echoes.qcow2
 
 ansible/execution_environment/context/*
 
