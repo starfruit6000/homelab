@@ -14,7 +14,7 @@
     "PATH": "/home/vscode/.nix-profile/bin:/home/vscode/.local/state/nix/profile/bin:${containerEnv:PATH}"
   },
   "postCreateCommand": [
-    "nix-env", "-i", "-f", "${containerWorkspaceFolder}/nixos", "-A", "tools"
+    "nix-env", "-i", "-f", "${containerWorkspaceFolder}/nixos", "-A", "platform-tools"
   ],
   "remoteUser": "vscode"
 }

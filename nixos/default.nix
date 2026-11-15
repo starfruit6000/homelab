@@ -17,11 +17,7 @@ let
         message = "Generate and add nixos/hosts/${host}-hardware.nix before deploying this host.";
       }];
     };
-  vm = host: mkHost host [
-    "${nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
-    ./vm.nix
-  ];
-in {
+in rec {
   nixosConfigurations = {
     dogs = mkHost "dogs" [ ./production.nix (hardware "dogs") ];
     echoes = mkHost "echoes" [ ./production.nix (hardware "echoes") ];
@@ -32,6 +28,8 @@ in {
       age ansible fluxcd kubectl kubernetes-helm kustomize opentofu sops
     ];
   };
-  dogs-vm = (vm "dogs").config.system.build.vm;
-  echoes-vm = (vm "echoes").config.system.build.vm;
+  platform-tools = pkgs.buildEnv {
+    name = "homelab-platform-tools";
+    paths = [ tools pkgs.nixos-build-vms ];
+  };
 }

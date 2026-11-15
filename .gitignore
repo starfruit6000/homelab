@@ -15,6 +15,7 @@ preseed.cfg
 *.iso
 /dogs.qcow2
 /echoes.qcow2
+/result
 
 ansible/execution_environment/context/*
 
