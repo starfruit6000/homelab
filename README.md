@@ -2,36 +2,43 @@
 
 ## Devcontainers
 
-Choose **Homelab - production maintenance** or **Homelab - platform development**
-when opening the repository in a devcontainer. Both provide Ansible, OpenTofu,
-kubectl, Helm, Flux, SOPS and age. The maintenance container does not start a
-cluster or automatically mount production credentials; provide those separately.
+The default devcontainer is **Homelab - production maintenance**. To select
+**Homelab - platform development** with the Dev Container CLI, run:
 
-The platform container automatically builds and starts two independent single-node NixOS/RKE2
-VMs from the repository's `dogs` and `echoes` host configurations. The only
-additional module, `nixos/vm.nix`, supplies VM hardware and kubeconfig export.
-The local contexts are `animals-local` and `meddle-local`. Its default
-`KUBECONFIG` contains only these local clusters. Use `kubectl config use-context
-animals-local` or `kubectl config use-context meddle-local` to switch. VM disks,
-kubeconfigs and console logs live under `~/.local/state/homelab` in the container.
-They survive container restarts, but not a devcontainer rebuild.
+```sh
+devcontainer --docker-path podman up --workspace-folder . --config .devcontainer/platform/devcontainer.json
+```
 
-This requires an x86-64 Linux container, internet access, at least 8 GiB RAM for
-the VMs in addition to the container, and sufficient disk space for Nix, VM
-images and Kubernetes images. The first build and cluster startup can take a
-long time; the VMs start in the background. Use `supervisorctl -c
-/etc/homelab-supervisord.conf status` and `kubectl get nodes` to check progress.
-QEMU can fall back to software emulation, which is much slower. If startup fails,
-inspect the corresponding `console.log`; the local kubeconfigs contain cluster-admin
-credentials and should not be shared. The local VMs do not bootstrap Flux or
-production secrets automatically. Their APIs are reachable from the devcontainer;
-the VMs use separate NAT networks and cannot directly reach each other.
-Restart a VM with `supervisorctl -c /etc/homelab-supervisord.conf restart dogs`
-or `restart echoes` to rebuild it after changing its NixOS configuration.
+Both provide Ansible, OpenTofu, kubectl, Helm, Flux, SOPS and age. The
+maintenance container does not start a cluster or automatically mount
+production credentials; provide those separately.
+
+The platform container does not start VMs automatically. To run a NixOS/RKE2 VM
+manually, use Nix's VM runner from the repository root:
+
+```sh
+nix-build ./nixos -A dogs-vm -o /tmp/homelab-dogs-vm
+/tmp/homelab-dogs-vm/bin/run-dogs-vm
+```
+
+The configuration uses the configured `<nixpkgs>` channel. Its Nixpkgs version
+must provide the NixOS RKE2 module and `rke2_1_37`; it is not pinned here.
+
+Use `echoes-vm` and `run-echoes-vm` for the other host. Each VM uses its corresponding repository
+host configuration plus `nixos/vm.nix` for virtual hardware and console access.
+The VM runs in the foreground and logs in as root on its console; inside it, use
+`kubectl --kubeconfig /etc/rancher/rke2/rke2.yaml get nodes`. Shut it down from
+the guest with `poweroff`. The runner creates a disk image in the current
+directory; it survives container restarts if the workspace is persistent.
+
+Each VM requires an x86-64 Linux container, internet access, 4 GiB RAM and disk
+space for Nix, the VM and Kubernetes images. QEMU can fall back to much slower
+software emulation. The VMs do not bootstrap Flux or production secrets and do
+not export kubeconfigs to the devcontainer.
 
 ## NixOS migration
 
-`nixos/flake.nix` exposes `nixosConfigurations.dogs` and `nixosConfigurations.echoes`;
+`nixos/default.nix` exposes `nixosConfigurations.dogs` and `nixosConfigurations.echoes`;
 both use the same host and RKE2 modules as the development VMs. These definitions
 are **not yet production-ready**: hardware and boot configuration, storage,
 secrets, Flux bootstrap and the remaining Ansible roles still need to be migrated

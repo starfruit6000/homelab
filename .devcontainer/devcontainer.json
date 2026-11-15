@@ -1,23 +1,20 @@
 {
   "name": "Homelab - production maintenance",
   "build": {
-    "dockerfile": "../Dockerfile",
-    "context": ".."
+    "dockerfile": "Dockerfile",
+    "context": "."
   },
   "init": true,
   "features": {
     "ghcr.io/devcontainers/features/copilot-cli:1": {},
     "ghcr.io/devcontainers/features/sshd:1": {},
-    "ghcr.io/devcontainers/features/nix:1": {
-      "extraNixConfig": "experimental-features = nix-command flakes"
-    }
+    "ghcr.io/devcontainers/features/nix:1": {}
   },
   "remoteEnv": {
     "PATH": "/home/vscode/.nix-profile/bin:/home/vscode/.local/state/nix/profile/bin:${containerEnv:PATH}"
   },
   "postCreateCommand": [
-    "nix", "profile", "install", "--no-write-lock-file",
-    "path:${containerWorkspaceFolder}/nixos#tools"
+    "nix-env", "-i", "-f", "${containerWorkspaceFolder}/nixos", "-A", "tools"
   ],
   "remoteUser": "vscode"
 }
