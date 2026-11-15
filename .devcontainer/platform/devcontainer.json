@@ -1,0 +1,28 @@
+{
+  "name": "Homelab - platform development",
+  "build": {
+    "dockerfile": "../Dockerfile",
+    "context": ".."
+  },
+  "init": true,
+  "overrideCommand": false,
+  "features": {
+    "ghcr.io/devcontainers/features/copilot-cli:1": {},
+    "ghcr.io/devcontainers/features/sshd:1": {},
+    "ghcr.io/devcontainers/features/nix:1": {
+      "extraNixConfig": "experimental-features = nix-command flakes"
+    }
+  },
+  "containerEnv": {
+    "HOMELAB_WORKSPACE": "${containerWorkspaceFolder}",
+    "KUBECONFIG": "/home/vscode/.local/state/homelab/dogs/exchange/kubeconfig:/home/vscode/.local/state/homelab/echoes/exchange/kubeconfig"
+  },
+  "remoteEnv": {
+    "PATH": "/home/vscode/.nix-profile/bin:/home/vscode/.local/state/nix/profile/bin:${containerEnv:PATH}"
+  },
+  "postCreateCommand": [
+    "nix", "profile", "install", "--no-write-lock-file",
+    "path:${containerWorkspaceFolder}/nixos#tools"
+  ],
+  "remoteUser": "vscode"
+}
