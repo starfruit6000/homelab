@@ -5,18 +5,15 @@
 From the repository root, using the Dev Container CLI:
 
 ```sh
-# Production maintenance (default)
-devcontainer --docker-path podman up --workspace-folder .
+# Production maintenance: start and open a shell
+devcontainer --docker-path podman up --workspace-folder . --id-label "homelab.workspace=$PWD" --id-label homelab.role=maintenance
+devcontainer --docker-path podman exec --workspace-folder . --id-label "homelab.workspace=$PWD" --id-label homelab.role=maintenance bash
 
-# Platform development
-devcontainer --docker-path podman up --workspace-folder . --config .devcontainer/platform/devcontainer.json
-```
+# Platform development: after exiting the maintenance shell, start and open a shell
+devcontainer --docker-path podman up --workspace-folder . --config .devcontainer/platform/devcontainer.json --id-label "homelab.workspace=$PWD" --id-label homelab.role=platform
+devcontainer --docker-path podman exec --workspace-folder . --config .devcontainer/platform/devcontainer.json --id-label "homelab.workspace=$PWD" --id-label homelab.role=platform bash
 
-## Development VMs
-
-In the platform devcontainer, from the repository root:
-
-```sh
+# Inside the platform container: start the VMs
 nix-shell nixos/shell.nix --arg platform true
 nixos-build-vms nixos/network.nix
 ./result/bin/nixos-run-vms
