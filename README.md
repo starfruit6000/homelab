@@ -1,5 +1,15 @@
 # Homelab
 
+## Development VMs
+
+In the platform devcontainer, from the repository root:
+
+```sh
+nix-shell nixos/shell.nix --arg platform true
+nixos-build-vms nixos/network.nix
+./result/bin/nixos-run-vms
+```
+
 ## How to set up
 
 1. Configure Cloudflare DNS records
