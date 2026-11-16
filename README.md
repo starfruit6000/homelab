@@ -1,5 +1,17 @@
 # Homelab
 
+## Devcontainers
+
+From the repository root, using the Dev Container CLI:
+
+```sh
+# Production maintenance (default)
+devcontainer --docker-path podman up --workspace-folder .
+
+# Platform development
+devcontainer --docker-path podman up --workspace-folder . --config .devcontainer/platform/devcontainer.json
+```
+
 ## Development VMs
 
 In the platform devcontainer, from the repository root:
