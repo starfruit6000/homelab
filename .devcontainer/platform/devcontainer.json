@@ -5,10 +5,19 @@
     "context": ".."
   },
   "init": true,
+  "runArgs": [
+    "--secret",
+    "codex-github-pat,type=env,target=CODEX_GITHUB_PAT"
+  ],
   "features": {
     "ghcr.io/devcontainers/features/copilot-cli:1": {},
     "ghcr.io/devcontainers/features/sshd:1": {},
     "ghcr.io/devcontainers/features/nix:1": {}
   },
-  "remoteUser": "vscode"
+  "remoteUser": "vscode",
+  "postCreateCommand": [
+    "codex", "mcp", "add", "github",
+    "--url", "https://api.githubcopilot.com/mcp/readonly",
+    "--bearer-token-env-var", "CODEX_GITHUB_PAT"
+  ]
 }
