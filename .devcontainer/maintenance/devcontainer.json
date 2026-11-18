@@ -1,0 +1,15 @@
+{
+  "name": "Homelab - Platform Maintenance",
+  "build": {
+    "dockerfile": "${localWorkspaceFolder}/.devcontainer/Dockerfile",
+    "context": "${localWorkspaceFolder}/.devcontainer",
+    "target": "base"
+  },
+  "init": true,
+  "features": {
+    "ghcr.io/devcontainers/features/copilot-cli:1": {},
+    "ghcr.io/devcontainers/features/sshd:1": {},
+    "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {}
+  },
+  "remoteUser": "vscode"
+}

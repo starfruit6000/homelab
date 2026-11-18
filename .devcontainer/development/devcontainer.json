@@ -1,10 +1,15 @@
 {
-  "name": "Homelab - platform development",
+  "name": "Homelab - Development",
   "build": {
     "dockerfile": "../Dockerfile",
-    "context": ".."
+    "context": "..",
+    "target": "development"
   },
   "init": true,
+  "mounts": [
+    "type=volume,source=homelab-development-${devcontainerId}-codex,target=/home/vscode/.codex",
+    "type=volume,source=homelab-development-${devcontainerId}-uv-cache,target=/home/vscode/.cache/uv"
+  ],
   "runArgs": [
     "--secret",
     "codex-github-pat,type=env,target=CODEX_GITHUB_PAT"
@@ -15,6 +20,7 @@
     "ghcr.io/devcontainers/features/nix:1": {}
   },
   "remoteUser": "vscode",
+  "onCreateCommand": "sudo chown \"$(id -u):$(id -g)\" /home/vscode/.codex /home/vscode/.cache/uv",
   "postCreateCommand": [
     "codex", "mcp", "add", "github",
     "--url", "https://api.githubcopilot.com/mcp/readonly",
