@@ -1,0 +1,14 @@
+{
+  "name": "Homelab - platform development",
+  "build": {
+    "dockerfile": "../Dockerfile",
+    "context": ".."
+  },
+  "init": true,
+  "features": {
+    "ghcr.io/devcontainers/features/copilot-cli:1": {},
+    "ghcr.io/devcontainers/features/sshd:1": {},
+    "ghcr.io/devcontainers/features/nix:1": {}
+  },
+  "remoteUser": "vscode"
+}
