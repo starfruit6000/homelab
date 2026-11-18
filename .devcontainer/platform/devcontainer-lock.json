@@ -1,0 +1,19 @@
+{
+  "features": {
+    "ghcr.io/devcontainers/features/copilot-cli:1": {
+      "version": "1.1.4",
+      "resolved": "ghcr.io/devcontainers/features/copilot-cli@sha256:1e452b4a7a792590a580b0faf067dceb1d2f98c0dd3b71917f812c03c95262b0",
+      "integrity": "sha256:1e452b4a7a792590a580b0faf067dceb1d2f98c0dd3b71917f812c03c95262b0"
+    },
+    "ghcr.io/devcontainers/features/nix:1": {
+      "version": "1.4.1",
+      "resolved": "ghcr.io/devcontainers/features/nix@sha256:525789b2fead31ab36aa2f6fc8d2b62c5cdb5105714233c55afe77588d054dca",
+      "integrity": "sha256:525789b2fead31ab36aa2f6fc8d2b62c5cdb5105714233c55afe77588d054dca"
+    },
+    "ghcr.io/devcontainers/features/sshd:1": {
+      "version": "1.1.0",
+      "resolved": "ghcr.io/devcontainers/features/sshd@sha256:f5251b8e4325f68f7280973c6cd65daff414449c66f240621502d4e8e74eb7ee",
+      "integrity": "sha256:f5251b8e4325f68f7280973c6cd65daff414449c66f240621502d4e8e74eb7ee"
+    }
+  }
+}
