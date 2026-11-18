@@ -13,7 +13,6 @@
       - zfsutils-linux
       - mbuffer
       - jq
-      - python3-kubernetes
     state: present
 
 - name: Safely load ZFS kernel module
@@ -150,12 +149,6 @@
 - name: Import sanoid role
   ansible.builtin.import_role:
     name: geerlingguy.sanoid
-
-- name: Deploy dr_promote.py script
-  ansible.builtin.copy:
-    src: dr_promote.py
-    dest: /usr/local/bin/dr_promote.py
-    mode: '0700'
 
 - name: Import Primary cluster tasks
   ansible.builtin.import_tasks: primary.yaml
