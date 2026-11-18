@@ -20,3 +20,6 @@ kube_config
 kube_config.orig
 
 __pycache__
+
+result/**
+result
