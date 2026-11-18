@@ -15,7 +15,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: configarr
-              image: ghcr.io/raydak-labs/configarr:1.34.0@sha256:738f79088c08ccaf578e71ca44faca16181d5399934beedbb81851a4f9ba06c1
+              image: ghcr.io/raydak-labs/configarr:1.39.2@sha256:48893921c607e96e40310d3ced50a92584667a84595dc9b782f523d46267f2e7
               tty: true
               env:
                 - name: LOG_STACKTRACE
