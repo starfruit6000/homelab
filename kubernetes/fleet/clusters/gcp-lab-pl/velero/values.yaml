@@ -2,7 +2,7 @@
 # Chart 12.2.0 installs Velero 1.18.2; GCP plugin 1.14.x matches Velero 1.18.x.
 initContainers:
   - name: velero-plugin-for-gcp
-    image: velero/velero-plugin-for-gcp:v1.14.4
+    image: velero/velero-plugin-for-gcp:v1.15.0@sha256:ac370fe56357d432c5bc1290fc009d163bd3eb58db39c0d454bbff50b40df2ca
     volumeMounts:
       - name: plugins
         mountPath: /target
